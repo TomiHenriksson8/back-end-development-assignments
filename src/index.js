@@ -68,7 +68,7 @@ app.get('/api/user/:id', getUserById);
 // add user
 app.post('/api/user', postUser);
 // modify user
-app.put('/app/user/:id', putUser );
+app.put('/api/user/:id', putUser);
 // delete user
 app.delete('/api/user/:id', deleteUser);
 

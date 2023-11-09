@@ -20,6 +20,7 @@ POST  http://127.0.0.1:3000/api/items
 {"random": "random"}
 
 ### PUT /items/:id
+y
 
 PUT  http://127.0.0.1:3000/api/items/5
 Content-Type: application/json
@@ -62,7 +63,7 @@ Content-Type: application/json
 
 ### DELETE /api/media/:id
 
-DELETE http://127.0.0.1:3000/api/media/1
+DELETE http://127.0.0.1:3000/api/media/9625
 
 
 ### GET /api/user
@@ -71,23 +72,31 @@ GET http://127.0.0.1:3000/api/user
 
 ### GET /api/user/:id
 
-GET http://127.0.0.1:3000/api/user/1
+GET http://127.0.0.1:3000/api/user/305
 
 ### POST /api/user
 
 POST http://127.0.0.1:3000/api/user
-content-type: application/json
+Content-Type: application/json
+
 {
     "username": "testPost",
     "password": "12345",
     "email": "test@test.com",
-    "user_level_id": 1,
+    "user_level_id": 1
 }
+
 
 ### PUT /api/user/:id
 
-PUT http://127.0.0.1:3000/api/user/1
+PUT http://127.0.0.1:3000/api/user/260
+Content-Type: application/json
+
+{
+    "email": "modified@test.com"
+}
+
 
 ### DELETE /api/user/:id
 
-DELETE http://127.0.0.1:3000/api/user/1
+DELETE http://127.0.0.1:3000/api/user/260

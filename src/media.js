@@ -58,7 +58,7 @@ const getMedia = (request, response) => {
 };
 
 const getMediaById = (request, response) => {
-    const item = items.find((element) => element.id == request.params.id);
+    const item = mediaData.find((element) => element.media_id == request.params.id);
     if (item) {
         response.json(item);
     } else {

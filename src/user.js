@@ -50,23 +50,28 @@ const postUser = (request, response) => {
 };
 
 const putUser = (request, response) => {
-    const { id } = request.params;
-    const index = userData.find(user => user.user_id == id);
+    const { id } = request.params; // id is a string here
+    const index = userData.findIndex(user => user.user_id === parseInt(id)); // Parse id to number and compare
+
     if (index !== -1) {
+        // User exists, update the user information
         userData[index] = {
             ...userData[index],
-            ...request.body,
-            media_id: parseInt(id)
+            ...request.body, // Merge the request body with the existing user data
         };
-        response.status(200).json(userData[index]);
+        response.status(200).json(userData[index]); // Send back the updated user
     } else {
-        response.statusa(404).json({"message": "User not found!"})
+        // User does not exist, send a 404 response
+        response.status(404).json({ "message": "User not found!" });
     }
 };
 
+
+
+
 const deleteUser = (request, response) => {
     const  { id } = request.params;
-    const index = userData.find(user => user.user_id == id);
+    const index = userData.findIndex(user => user.user_id == id);
     if (index !== -1) {
         userData.splice(index, 1)
         response.json({"message": "User deleted!"})
