@@ -1,102 +1,112 @@
-### GET /
-GET  http://127.0.0.1:3000/
+### GET /kukkuu
+GET http://localhost:3000/kukkuu
 
+### GET /something-else
+GET http://localhost:3000/morjes
 
-### GET /items
-GET  http://127.0.0.1:3000/api/items
+# Media sharing api http test requests
 
-### GET /items/:id
-GET  http://127.0.0.1:3000/api/items/56
+## /api/media endpoit
 
-### POST /
-POST  http://127.0.0.1:3000/api/items
-Content-Type: application/json
+### Get all media
+GET http://localhost:3000/api/media
 
-{"name": "kurkku"}
+### Get media by id
+GET http://localhost:3000/api/media/9632
 
-### POST /items error
-POST  http://127.0.0.1:3000/api/items
+### Get media by id FAIL
+GET http://localhost:3000/api/media/959099
 
-{"random": "random"}
+### Post media 
+POST http://localhost:3000/api/media
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
-### PUT /items/:id
-y
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
 
-PUT  http://127.0.0.1:3000/api/items/5
-Content-Type: application/json
+New media title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="user_id"
 
-{"name": "kurkku"}
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="image.jpg"
+Content-Type: image/jpeg
 
-### DELETE /items/:id
-DELETE   http://127.0.0.1:3000/api/items/20
+< ./cat.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
+### Post media FAIL
+POST http://localhost:3000/api/media
+content-type: application/json
 
-### GET /api/media
+{"msg": "HEllo"}
 
-GET http://127.0.0.1:3000/api/media
-
-### GET /api/media/:id
-
-GET http://127.0.0.1:3000/api/media/9625
-
-### POST /api/media
-
-POST http://127.0.0.1:3000/api/media
+### Update media
+PUT http://localhost:3000/api/media/9590
 content-type: application/json
 
 {
-    "filename": "60ax.jpg",
-    "title": "New image",
-    "description": "the description of the new image",
-    "user_id": 305,
-    "media_type": "image/jpeg"
+  "filename": "updated.jpg",
+  "title": "Updated Media",
+  "description": "updated description",
 }
 
-### PUT /api/media/:id
-
-PUT http://127.0.0.1:3000/api/media/9625
-Content-Type: application/json
+### Update media FAIL
+PUT http://localhost:3000/api/media/260
+content-type: application/json
 
 {
-    "title": "test"
+  "something": "this will fail",
 }
 
-### DELETE /api/media/:id
+### Delete media
+DELETE http://localhost:3000/api/media/9590
 
-DELETE http://127.0.0.1:3000/api/media/9625
+## /api/users endpoint
 
+### Get all users
+GET http://localhost:3000/api/users
 
-### GET /api/user
+### Get user by id
+GET http://localhost:3000/api/users/260
 
-GET http://127.0.0.1:3000/api/user
+### Get user by id FAIL
+GET http://localhost:3000/api/users/959099
 
-### GET /api/user/:id
-
-GET http://127.0.0.1:3000/api/user/305
-
-### POST /api/user
-
-POST http://127.0.0.1:3000/api/user
-Content-Type: application/json
+### Post users 
+POST http://localhost:3000/api/users
+content-type: application/json
 
 {
-    "username": "testPost",
-    "password": "12345",
-    "email": "test@test.com",
-    "user_level_id": 1
+  "username": "Newuser",
+  "password": "newsecret",
+  "email": "newuser@example.com"
 }
 
+### Post users FAIL
+POST http://localhost:3000/api/users
+content-type: application/json
 
-### PUT /api/user/:id
+{"msg": "HEllo"}
 
-PUT http://127.0.0.1:3000/api/user/260
-Content-Type: application/json
+### Update user
+PUT http://localhost:3000/api/users/260
+content-type: application/json
 
 {
-    "email": "modified@test.com"
+  "username": "Newuser",
+  "password": "newsecret",
+  "email": "newuser@example.com"
 }
 
+### Update users FAIL
+PUT http://localhost:3000/api/users/340
+content-type: application/json
 
-### DELETE /api/user/:id
+{
+  "something": "this will fail",
+}
 
-DELETE http://127.0.0.1:3000/api/user/260
+### Delete users
+DELETE http://localhost:3000/api/users/260
