@@ -12,7 +12,7 @@ GET http://localhost:3000/morjes
 GET http://localhost:3000/api/media
 
 ### Get media by id
-GET http://localhost:3000/api/media/9632
+GET http://localhost:3000/api/media/1
 
 ### Get media by id FAIL
 GET http://localhost:3000/api/media/959099

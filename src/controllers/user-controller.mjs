@@ -1,7 +1,9 @@
-import users from '../mock-data/users.json' assert {type: 'json'};
 
-const getUsers = (req, res) => {
-  res.json(users);
+import { fetchAllUsers } from "../models/users-model.mjs";
+
+const getUsers = async (req, res) => {
+    const users = await fetchAllUsers();
+    res.json(users);
 };
 
 // Following functions are just stubs at the moment
