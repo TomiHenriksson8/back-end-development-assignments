@@ -1,11 +1,11 @@
 import express from 'express';
 import multer from 'multer';
 import {
-  deleteMedia,
+  deleteMediaHandler,
   getMedia,
   getMediaById,
   postMedia,
-  putMedia,
+  putMediaHandler,
 } from '../controllers/media-controller.mjs';
 import {logger} from '../middlewares/middlewares.mjs';
 
@@ -20,7 +20,7 @@ mediaRouter.route('/')
     .post(upload.single('file'), postMedia);
 mediaRouter.route('/:id')
     .get(getMediaById)
-    .put(putMedia)
-    .delete(deleteMedia);
+    .put(putMediaHandler)
+    .delete(deleteMediaHandler);
 
 export default mediaRouter;

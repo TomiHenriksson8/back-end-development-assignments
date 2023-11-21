@@ -43,14 +43,19 @@ content-type: application/json
 {"msg": "HEllo"}
 
 ### Update media
-PUT http://localhost:3000/api/media/9590
+PUT http://localhost:3000/api/media/2
 content-type: application/json
 
 {
-  "filename": "updated.jpg",
-  "title": "Updated Media",
-  "description": "updated description",
+    "media_id": 1,
+    "user_id": 2,
+    "filename": "newfile.jpg",
+    "filesize": 1024,
+    "media_type": "image/jpeg",
+    "title": "Updated Title",
+    "description": "Updated Description"
 }
+
 
 ### Update media FAIL
 PUT http://localhost:3000/api/media/260
@@ -61,7 +66,7 @@ content-type: application/json
 }
 
 ### Delete media
-DELETE http://localhost:3000/api/media/9590
+DELETE http://localhost:3000/api/media/2
 
 ## /api/users endpoint
 
@@ -69,7 +74,7 @@ DELETE http://localhost:3000/api/media/9590
 GET http://localhost:3000/api/users
 
 ### Get user by id
-GET http://localhost:3000/api/users/260
+GET http://localhost:3000/api/users/3
 
 ### Get user by id FAIL
 GET http://localhost:3000/api/users/959099
@@ -91,13 +96,13 @@ content-type: application/json
 {"msg": "HEllo"}
 
 ### Update user
-PUT http://localhost:3000/api/users/260
+PUT http://localhost:3000/api/users/1
 content-type: application/json
 
 {
-  "username": "Newuser",
-  "password": "newsecret",
-  "email": "newuser@example.com"
+  "username": "NewuserUpdated",
+  "password": "newsecret1",
+  "email": "newuser1@example.com"
 }
 
 ### Update users FAIL
@@ -109,4 +114,4 @@ content-type: application/json
 }
 
 ### Delete users
-DELETE http://localhost:3000/api/users/260
+DELETE http://localhost:3000/api/users/4
