@@ -1,4 +1,4 @@
-
+import {validationResult} from "express-validator";
 import { CreateUser, UpdateUser, fetchAllUsers, fetchUserById, DeleteUser } from "../models/users-model.mjs";
 
 
@@ -22,16 +22,14 @@ const getUserById =  async (req, res) => {
 };
 
 const postUser = async (req, res) => {
-  try {
-    const result = await CreateUser(req.body); // Call the createUser service function
-    if (result.error) {
-      res.status(500).json(result);
-    } else {
-      res.status(201).json(result); // Use status code 201 for successful creation
-    }
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // details about errors:
+    console.log(errors.array())
+    return res.status(400).json({message: 'invalid input fields'});
   }
+  const newUserId = await addUser(req.body);
+  res.status(201).json({message: 'user added', user_id: newUserId});
 };
 
 const putUser = async (req, res) => {

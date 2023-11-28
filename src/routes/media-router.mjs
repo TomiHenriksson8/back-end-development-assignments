@@ -1,5 +1,4 @@
 import express from 'express';
-import multer from 'multer';
 import {
   deleteMediaHandler,
   getMedia,
@@ -8,19 +7,19 @@ import {
   putMediaHandler,
 } from '../controllers/media-controller.mjs';
 import {logger} from '../middlewares/middlewares.mjs';
+import {authenticateToken} from '../middlewares/authentication.mjs';
+import upload from '../middlewares/upload.mjs';
 
 const mediaRouter = express.Router();
-const upload = multer({dest: 'uploads/'})
 
-// router specific middleware
-//mediaRouter.use(logger);
+mediaRouter.use(logger);
 
-mediaRouter.route('/')
-    .get(getMedia)
-    .post(upload.single('file'), postMedia);
-mediaRouter.route('/:id')
-    .get(getMediaById)
-    .put(putMediaHandler)
-    .delete(deleteMediaHandler);
+// Routes
+mediaRouter.get('/', getMedia);
+mediaRouter.get('/:id', getMediaById);
+
+mediaRouter.post('/', authenticateToken, upload.single('file'), postMedia);
+mediaRouter.put('/:id', authenticateToken, putMediaHandler);
+mediaRouter.delete('/:id', authenticateToken, deleteMediaHandler);
 
 export default mediaRouter;

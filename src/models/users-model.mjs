@@ -87,7 +87,20 @@ const DeleteUser = async (userId) => {
     }
 };
 
+const login = async (userCreds) => {
+    try {
+      const sql = `SELECT user_id, username, email, user_level_id
+                   FROM Users WHERE username = ? AND password = ?`;
+      const params = [userCreds.username, userCreds.password];
+      const result = await promisePool.query(sql, params);
+      const [rows] = result; // first item in result array is the data rows
+      return rows[0];
+    } catch (e) {
+      console.error('error', e.message);
+      return {error: e.message};
+    }
+  };
+  
 
 
-
-export { fetchAllUsers, fetchUserById, CreateUser, UpdateUser, DeleteUser }
+export { fetchAllUsers, fetchUserById, CreateUser, UpdateUser, DeleteUser, login }
