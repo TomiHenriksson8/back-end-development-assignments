@@ -6,18 +6,19 @@ const getMedia = async (req, res) => {
   res.json(mediaItems);
 };
 
-const getMediaById = async (req, res) => {
-  console.log(req.params);
-  const result = await fetchMediaById(req.params.id); 
-  // "error handling" for different scenarios 
-  if (result) {
+const getMediaById = async (req, res, next) => {
+  try {
+    const result = await fetchMediaById(req.params.id);
+    if (!result) {
+      throw new Error('Media not found');
+    }
     if (result.error) {
-      res.status(500);
+      throw new Error(result.error);
     }
     res.json(result);
-  } else {
-    res.status(404);
-    res.json({error: 'Not Found', media_id: req.params.id});
+  } catch (error) {
+    error.status = error.status || 404; // Set the status code for not found or other errors
+    next(error);
   }
 };
 
@@ -64,32 +65,29 @@ const putMediaHandler = async (req, res) => {
   };
 
   try {
-      const result = await putMedia(media);
-      if (result.error) {
-          res.status(500).send(result.error);
-      } else {
-          res.status(200).send({ message: `Media with ID ${media.media_id} successfully updated`, media_id: media.media_id });
-      }
+    const result = await putMedia(media);
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    res.status(200).send({ message: `Media with ID ${media.media_id} successfully updated`, media_id: media.media_id });
   } catch (error) {
-      console.error('Server error', error.message);
-      res.status(500).send({ error: error.message });
+    error.status = error.status || 500;
+    next(error);
   }
 };
 
 
 const deleteMediaHandler = async (req, res) => {
   const id = req.params.id;
-
   try {
-      const result = await deleteMedia(id);
-      if (result.error) {
-          res.status(500).send(result.error);
-      } else {
-          res.status(200).send({ message: `Media with ID ${id} successfully deleted`, media_id: result.media_id });
-      }
+    const result = await deleteMedia(id);
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    res.status(200).send({ message: `Media with ID ${id} successfully deleted`, media_id: result.media_id });
   } catch (error) {
-      console.error('Server error', error.message);
-      res.status(500).send({ error: error.message });
+    error.status = error.status || 500;
+    next(error);
   }
 };
 
